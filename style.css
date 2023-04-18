@@ -42,7 +42,6 @@ body>div {
     height: 30em;
     max-height: 800px;
     /* estilo */
-    background-color: black;
 }
 
 .marcador {
@@ -80,6 +79,56 @@ body>div {
 }
 
 .jugador {
+    /* posicion */
     display: flex;
     flex-flow: column nowrap;
+    /* tamano */
+    padding: 0 .5em;
+}
+
+/* tablero */
+.contenido {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.contenido div {
+    width: 33.33%;
+}
+
+.contenido div:nth-child(1) {
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+}
+.contenido div:nth-child(2) {
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+}
+.contenido div:nth-child(3) {
+    border-left: 2px solid black;
+    border-bottom: 2px solid black;
+}
+.contenido div:nth-child(4) {
+    border: 2px solid black;
+    border-left: none;
+}
+.contenido div:nth-child(5) {
+    border: 2px solid black;
+}
+.contenido div:nth-child(6) {
+    border: 2px solid black;
+    border-right: none;
+}
+.contenido div:nth-child(7) {
+    border-top: 2px solid black;
+    border-right: 2px solid black;
+}
+.contenido div:nth-child(8) {
+    border: 2px solid black;
+    border-bottom: none;
+}
+.contenido div:nth-child(9) {
+    border-left: 2px solid black;
+    border-top: 2px solid black;
 }

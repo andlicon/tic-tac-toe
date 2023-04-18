@@ -1,0 +1,85 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    /* posicion */
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    /* tamano */
+    height: 100vh;
+    /* estilo */
+    background-color: lightblue;
+}
+
+body>div {
+    /* tamano */
+    width: 50%;
+    max-width: 800px;
+}
+
+/* marcador */
+.marcador-container {
+    /* posicion */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1em;
+    /* tamano */
+    height: 5.5em;
+    padding: 5px;
+    /* estilo */
+    background-color: lightgrey;
+}
+
+.contenido {
+    /* tamano */
+    height: 30em;
+    max-height: 800px;
+    /* estilo */
+    background-color: black;
+}
+
+.marcador {
+    /* posicion*/
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 1em;
+    /* tamano */
+    height: 100%;
+    width: 30%;
+    max-width: 200px;
+    /* estilo */
+    background-color: rgb(194, 192, 192);
+}
+
+.marcador-derecha {
+    /* posicion */
+    flex-direction: row-reverse;
+}
+
+.usuario-imagen {
+    /* tamano */
+    height: 52px;
+    aspect-ratio: 1/1;
+    /* estilos */
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+}
+
+.puntuaje {
+    font-size: 2rem;
+    color: white;
+}
+
+.jugador {
+    display: flex;
+    flex-flow: column nowrap;
+}

@@ -180,6 +180,16 @@ const determinarGanador = arregloCasillas => {
     return ganador;
 }
 
+const actualizarTablero = () => {
+    const juego = JSON.parse(window.sessionStorage.getItem('juego'));
+
+    const marcadorPrimerJugador = document.querySelector('#puntuaje-jugador1');
+    marcadorPrimerJugador.innerText = juego.puntuajeJugador1;
+
+    const marcadorSegundoJugador = document.querySelector('#puntuaje-jugador2');
+    marcadorSegundoJugador.innerText = juego.puntuajeJugador2;
+}
+
 function logicaJuego(event, arregloCasillas) {
     if (!isCasillaSeleccionable(event)) {
         event.preventDefault();
@@ -192,12 +202,10 @@ function logicaJuego(event, arregloCasillas) {
     if (isGameOver(arregloCasillas)) {
         const ganador = determinarGanador(arregloCasillas);
 
-        if(ganador) {
-            alert('GANO EL PRIMER JUGADOR');
+        if(ganador!=null) {
+            actualizarTablero();
         }
-        else {
-            alert('GANO EL SEGUNDO JUGADOR');
-        }
+
     }
 
     cambiarTurno();

@@ -132,3 +132,16 @@ body>div {
     border-left: 2px solid black;
     border-top: 2px solid black;
 }
+
+/* Casillas juego, X y O */
+.casilla {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 50%;
+}
+.primerJugador {
+    background-image: URL('https://static.vecteezy.com/system/resources/thumbnails/001/192/548/small/x.png');
+}
+.segundoJugador {
+    background-image: URL('https://static.vecteezy.com/system/resources/thumbnails/001/192/291/small/circle.png');
+}

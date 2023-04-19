@@ -36,13 +36,14 @@ const cambiarTurno = () => {
     sessionStorage.setItem('juego', JSON.stringify(juego));
 }
 
-const isGameOver = (casillaSeleccionada) => {
-    const casillasArray = document.querySelectorAll('.casilla');
+const isGameOver = (arregloCasillas) => {
     //Comprobar vertical
 
+    console.log()
+    
 }
 
-const logicaJuego = event => {
+function logicaJuego (event, arregloCasillas) {
     if(!isCasillaSeleccionable(event)) {
         event.preventDefault();
         return;
@@ -50,8 +51,8 @@ const logicaJuego = event => {
 
     const casilla = event.target;
     seleccionarCasilla(casilla);
-    //comprobar si hay un ganador
-    // isGanador();
+
+    isGameOver(arregloCasillas);
 
     cambiarTurno();
 }
@@ -87,8 +88,7 @@ const reiniciarTablero = (longitud) => {
 window.addEventListener('load', () => {
     const tablero = document.querySelector('.contenido');
     const arregloCasillas = reiniciarTablero(3);
-    console.log(arregloCasillas);
-    tablero.addEventListener('click', logicaJuego);
+    tablero.addEventListener('click', (event) => logicaJuego(event, arregloCasillas));
 
     const juego = {
         'primerJugador': true,

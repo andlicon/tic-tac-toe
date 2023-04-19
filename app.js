@@ -147,24 +147,37 @@ const isMaximoMovimientos = (cantidadCasillas) => {
 }
 
 const isGameOver = (arregloCasillas) => {
-    //ESTO DESPUES DEVOLVERA UN OBJETO
-
-    if (isHorizontalWinner(arregloCasillas)) {
-        return true;
-    }
-    if (isVerticalWinner(arregloCasillas)) {
-        return true;
-    }
-    if (isEjePrincipalWinner(arregloCasillas)) {
-        return true;
-    }
-    if(isEjeSecundarioWinner(arregloCasillas)) {
-        return true;
-    }
-    if (isMaximoMovimientos(arregloCasillas.length)) {
+    if (isHorizontalWinner(arregloCasillas) 
+    || isVerticalWinner(arregloCasillas)
+    || isEjePrincipalWinner(arregloCasillas)
+    || isEjeSecundarioWinner(arregloCasillas)
+    || isMaximoMovimientos(arregloCasillas.length) ){
         return true;
     }
 
+    return false;
+}
+
+const determinarGanador = arregloCasillas => {
+    ganador = null;
+
+    if (isHorizontalWinner(arregloCasillas) 
+    || isVerticalWinner(arregloCasillas)
+    || isEjePrincipalWinner(arregloCasillas)
+    || isEjeSecundarioWinner(arregloCasillas) ){
+        const juego = JSON.parse(sessionStorage.getItem('juego'));
+        ganador = juego.primerJugador;
+        if(ganador) {
+            juego.puntuajeJugador1++;
+        }
+        else {
+            juego.puntuajeJugador2++;
+        }
+
+        sessionStorage.setItem('juego', JSON.stringify(juego));
+    }
+
+    return ganador;
 }
 
 function logicaJuego(event, arregloCasillas) {
@@ -177,7 +190,14 @@ function logicaJuego(event, arregloCasillas) {
     seleccionarCasilla(casilla);
 
     if (isGameOver(arregloCasillas)) {
-        console.log('TERMINO');
+        const ganador = determinarGanador(arregloCasillas);
+
+        if(ganador) {
+            alert('GANO EL PRIMER JUGADOR');
+        }
+        else {
+            alert('GANO EL SEGUNDO JUGADOR');
+        }
     }
 
     cambiarTurno();

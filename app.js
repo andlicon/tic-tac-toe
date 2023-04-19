@@ -29,18 +29,29 @@ const cambiarTurno = () => {
     sessionStorage.setItem('juego', JSON.stringify(juego));
 }
 
+const isGameOver = (casillaSeleccionada) => {
+    const casillasArray = document.querySelectorAll('.casilla');
+    //Comprobar vertical
+    
+}
+
+const logicaJuego = event => {
+    if(!isCasillaSeleccionable(event)) {
+        event.preventDefault();
+        return;
+    }
+
+    const casilla = event.target;
+    seleccionarCasilla(casilla);
+    //comprobar si hay un ganador
+    isGanador();
+
+    cambiarTurno();
+}
+
 window.addEventListener('load', () => {
     const tablero = document.querySelector('.contenido');
-    tablero.addEventListener('click', (event) => {
-        if(!isCasillaSeleccionable(event)) {
-            event.preventDefault();
-            return;
-        }
-
-        const casilla = event.target;
-        seleccionarCasilla(casilla);
-        cambiarTurno();
-    });
+    tablero.addEventListener('click', logicaJuego);
 
     const juego = {
         'primerJugador': true,

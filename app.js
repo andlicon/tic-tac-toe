@@ -116,6 +116,29 @@ const isEjePrincipalWinner = (arregloCasillas) => {
     return true;
 };
 
+const isEjeSecundarioWinner = (arregloCasillas) => {
+    if (arregloCasillas == undefined || arregloCasillas == null || arregloCasillas.length == 0) {
+        return false;
+    }
+
+    const indexEje = arregloCasillas.length-1;
+
+    const casillaAux = arregloCasillas[0][indexEje];
+    if (casillaAux.classList.value == 'casilla') {
+        return false;
+    }
+
+    for(let i=0; i<arregloCasillas.length; i++) {
+        for(let j=0; j<arregloCasillas.length; j++) {
+            if(i+j==indexEje && arregloCasillas[i][j].classList.value != casillaAux.classList.value) {
+                return false;
+            }
+        }
+    }
+
+    return true;
+};
+
 const isMaximoMovimientos = (cantidadCasillas) => {
     const juego = JSON.parse(window.sessionStorage.getItem('juego'));
     const turnoContador = juego.turno;
@@ -133,6 +156,9 @@ const isGameOver = (arregloCasillas) => {
         return true;
     }
     if (isEjePrincipalWinner(arregloCasillas)) {
+        return true;
+    }
+    if(isEjeSecundarioWinner(arregloCasillas)) {
         return true;
     }
     if (isMaximoMovimientos(arregloCasillas.length)) {

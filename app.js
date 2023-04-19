@@ -67,6 +67,37 @@ const isHorizontalWinner = (arregloCasillas) => {
     return false;
 }
 
+const isVerticalWinner = (arregloCasillas) => {
+    if(arregloCasillas==undefined || arregloCasillas==null || arregloCasillas.length==0) {
+        return false;
+    }
+
+    for(let i=0; i<arregloCasillas.length; i++) {
+        let casillaAux = arregloCasillas[0][i];
+        if (casillaAux.classList.value=='casilla') {
+            continue;
+        }
+
+        let coincidencia = 0;
+
+        for(let j=0; j<arregloCasillas.length; j++) {
+            
+            if ( casillaAux.classList.value != arregloCasillas[j][i].classList.value) {
+                break;
+            }
+
+            coincidencia++;
+        }
+
+        if(coincidencia==arregloCasillas.length) {
+            return true;
+        }
+
+    }
+
+    return false;
+};
+
 const isMaximoMovimientos = (cantidadCasillas) => {
     const juego = JSON.parse(window.sessionStorage.getItem('juego'));
     const turnoContador = juego.turno;
@@ -77,12 +108,12 @@ const isMaximoMovimientos = (cantidadCasillas) => {
 const isGameOver = (arregloCasillas) => {
     //ESTO DESPUES DEVOLVERA UN OBJETO
 
-    //Comprobar horizontal
     if( isHorizontalWinner(arregloCasillas) ) {
         return true;
     }
-
-    //Comprobar si se excedio el maximo de movimientos
+    if( isVerticalWinner(arregloCasillas) ) {
+        return true;
+    }
     if( isMaximoMovimientos(arregloCasillas.length) ) {
         return true;
     }

@@ -54,6 +54,7 @@ const logicaJuego = event => {
 }
 
 const reiniciarTablero = (longitud) => {
+    //borrar contenido
     const tablero = document.querySelector('.contenido');
     const contenidoTablero = tablero.querySelectorAll('*');
     
@@ -61,8 +62,8 @@ const reiniciarTablero = (longitud) => {
         tablero.removeChild(elemento);
     }
 
-    const matrizCuadricula = [];
-
+    const matrizCuadricula = [];    //Matriz a retornar
+    //Crear la nueva cuadricula
     for(let i=0; i<longitud; i++) {
         const row = [];
 

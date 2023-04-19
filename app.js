@@ -30,6 +30,7 @@ const seleccionarCasilla = (casilla) => {
 const cambiarTurno = () => {
     const juego = JSON.parse(window.sessionStorage.getItem('juego'));
     juego.primerJugador = juego.primerJugador ? false : true;
+    juego.turno++;
     sessionStorage.setItem('juego', JSON.stringify(juego));
 }
 

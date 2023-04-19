@@ -90,7 +90,8 @@ window.addEventListener('load', () => {
     const juego = {
         'primerJugador': true,
         'puntuajeJugador1': 0,
-        'puntuajeJugador2': 0
+        'puntuajeJugador2': 0,
+        'turno': 0
     }
 
     window.sessionStorage.setItem('juego', JSON.stringify(juego));

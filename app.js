@@ -36,10 +36,20 @@ const cambiarTurno = () => {
     sessionStorage.setItem('juego', JSON.stringify(juego));
 }
 
+const isMaximoMovimientos = (cantidadCasillas) => {
+    const juego = JSON.parse(window.sessionStorage.getItem('juego'));
+    const turnoContador = juego.turno;
+
+    return turnoContador == Math.pow(cantidadCasillas, 2);
+}
+
 const isGameOver = (arregloCasillas) => {
     //Comprobar vertical
 
-    console.log()
+    //Comprobar si se excedio el maximo de movimientos
+    if( isMaximoMovimientos(arregloCasillas.length) ) {
+        return true;
+    }
     
 }
 
@@ -94,7 +104,7 @@ window.addEventListener('load', () => {
         'primerJugador': true,
         'puntuajeJugador1': 0,
         'puntuajeJugador2': 0,
-        'turno': 0
+        'turno': 1
     }
 
     window.sessionStorage.setItem('juego', JSON.stringify(juego));

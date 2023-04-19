@@ -206,6 +206,14 @@ function logicaJuego(event, arregloCasillas) {
             actualizarTablero();
         }
 
+        juegoController.abort();
+
+        //Quieres seguir jugando?
+        juegoController = new AbortController();
+        const juegoSenal = juegoController.signal;
+        const tablero = document.querySelector('.contenido');
+        const nuevasCasillas = reiniciarTablero(3);
+        tablero.addEventListener('click', (event) => logicaJuego(event, nuevasCasillas), {signal: juegoSenal});
     }
 
     cambiarTurno();
@@ -239,10 +247,16 @@ const reiniciarTablero = (longitud) => {
     return matrizCuadricula;
 }
 
+let juegoController;    // usado para abortar el evento del juego
+
 window.addEventListener('load', () => {
     const tablero = document.querySelector('.contenido');
     const arregloCasillas = reiniciarTablero(3);
-    tablero.addEventListener('click', (event) => logicaJuego(event, arregloCasillas));
+    
+    juegoController = new AbortController();
+    const juegoSenal = juegoController.signal;
+
+    tablero.addEventListener('click', (event) => logicaJuego(event, arregloCasillas), {signal: juegoSenal});
 
     const juego = {
         'primerJugador': true,

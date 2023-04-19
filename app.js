@@ -6,12 +6,12 @@ const isCasillaSeleccionable = (event) => {
         return false;
     }
 
-    for(const clase of clasesArray) {
-        if(clase.includes('Jugador')) {
+    for (const clase of clasesArray) {
+        if (clase.includes('Jugador')) {
             return false;
         }
     }
-    
+
     return true;
 }
 
@@ -19,7 +19,7 @@ const seleccionarCasilla = (casilla) => {
     const juego = JSON.parse(window.sessionStorage.getItem('juego'));
     const turno = juego.primerJugador;
 
-    if(turno) {
+    if (turno) {
         casilla.classList.add('primerJugador');
     }
     else {
@@ -37,28 +37,28 @@ const cambiarTurno = () => {
 }
 
 const isHorizontalWinner = (arregloCasillas) => {
-    if(arregloCasillas==undefined || arregloCasillas==null || arregloCasillas.length==0) {
+    if (arregloCasillas == undefined || arregloCasillas == null || arregloCasillas.length == 0) {
         return false;
     }
 
-    for(let i=0; i<arregloCasillas.length; i++) {
+    for (let i = 0; i < arregloCasillas.length; i++) {
         let casillaAux = arregloCasillas[i][0];
-        if (casillaAux.classList.value=='casilla') {
+        if (casillaAux.classList.value == 'casilla') {
             continue;
         }
 
         let coincidencia = 0;
 
-        for(let j=0; j<arregloCasillas.length; j++) {
-            
-            if ( casillaAux.classList.value != arregloCasillas[i][j].classList.value) {
+        for (let j = 0; j < arregloCasillas.length; j++) {
+
+            if (casillaAux.classList.value != arregloCasillas[i][j].classList.value) {
                 break;
             }
 
             coincidencia++;
         }
 
-        if(coincidencia==arregloCasillas.length) {
+        if (coincidencia == arregloCasillas.length) {
             return true;
         }
 
@@ -68,34 +68,52 @@ const isHorizontalWinner = (arregloCasillas) => {
 }
 
 const isVerticalWinner = (arregloCasillas) => {
-    if(arregloCasillas==undefined || arregloCasillas==null || arregloCasillas.length==0) {
+    if (arregloCasillas == undefined || arregloCasillas == null || arregloCasillas.length == 0) {
         return false;
     }
 
-    for(let i=0; i<arregloCasillas.length; i++) {
+    for (let i = 0; i < arregloCasillas.length; i++) {
         let casillaAux = arregloCasillas[0][i];
-        if (casillaAux.classList.value=='casilla') {
+        if (casillaAux.classList.value == 'casilla') {
             continue;
         }
 
         let coincidencia = 0;
 
-        for(let j=0; j<arregloCasillas.length; j++) {
-            
-            if ( casillaAux.classList.value != arregloCasillas[j][i].classList.value) {
+        for (let j = 0; j < arregloCasillas.length; j++) {
+
+            if (casillaAux.classList.value != arregloCasillas[j][i].classList.value) {
                 break;
             }
 
             coincidencia++;
         }
 
-        if(coincidencia==arregloCasillas.length) {
+        if (coincidencia == arregloCasillas.length) {
             return true;
         }
 
     }
 
     return false;
+};
+
+const isEjePrincipalWinner = (arregloCasillas) => {
+    if (arregloCasillas == undefined || arregloCasillas == null || arregloCasillas.length == 0) {
+        return false;
+    }
+    const casillaAux = arregloCasillas[0][0];
+    if (casillaAux.classList.value == 'casilla') {
+        return false;
+    }
+
+    for(let i=0; i<arregloCasillas.length; i++) {
+        if(arregloCasillas[i][i].classList.value != casillaAux.classList.value) {
+            return false;
+        }
+    }
+
+    return true;
 };
 
 const isMaximoMovimientos = (cantidadCasillas) => {
@@ -108,20 +126,23 @@ const isMaximoMovimientos = (cantidadCasillas) => {
 const isGameOver = (arregloCasillas) => {
     //ESTO DESPUES DEVOLVERA UN OBJETO
 
-    if( isHorizontalWinner(arregloCasillas) ) {
+    if (isHorizontalWinner(arregloCasillas)) {
         return true;
     }
-    if( isVerticalWinner(arregloCasillas) ) {
+    if (isVerticalWinner(arregloCasillas)) {
         return true;
     }
-    if( isMaximoMovimientos(arregloCasillas.length) ) {
+    if (isEjePrincipalWinner(arregloCasillas)) {
         return true;
     }
-    
+    if (isMaximoMovimientos(arregloCasillas.length)) {
+        return true;
+    }
+
 }
 
-function logicaJuego (event, arregloCasillas) {
-    if(!isCasillaSeleccionable(event)) {
+function logicaJuego(event, arregloCasillas) {
+    if (!isCasillaSeleccionable(event)) {
         event.preventDefault();
         return;
     }
@@ -129,7 +150,7 @@ function logicaJuego (event, arregloCasillas) {
     const casilla = event.target;
     seleccionarCasilla(casilla);
 
-    if(isGameOver(arregloCasillas)) {
+    if (isGameOver(arregloCasillas)) {
         console.log('TERMINO');
     }
 
@@ -140,17 +161,17 @@ const reiniciarTablero = (longitud) => {
     //borrar contenido
     const tablero = document.querySelector('.contenido');
     const contenidoTablero = tablero.querySelectorAll('*');
-    
-    for(const elemento of contenidoTablero) {
+
+    for (const elemento of contenidoTablero) {
         tablero.removeChild(elemento);
     }
 
     const matrizCuadricula = [];    //Matriz a retornar
     //Crear la nueva cuadricula
-    for(let i=0; i<longitud; i++) {
+    for (let i = 0; i < longitud; i++) {
         const row = [];
 
-        for(let j=0; j<longitud; j++) {
+        for (let j = 0; j < longitud; j++) {
             const casilla = document.createElement('div');
             casilla.classList.add('casilla');
 

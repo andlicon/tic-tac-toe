@@ -36,6 +36,37 @@ const cambiarTurno = () => {
     sessionStorage.setItem('juego', JSON.stringify(juego));
 }
 
+const isHorizontalWinner = (arregloCasillas) => {
+    if(arregloCasillas==undefined || arregloCasillas==null || arregloCasillas.length==0) {
+        return false;
+    }
+
+    for(let i=0; i<arregloCasillas.length; i++) {
+        let casillaAux = arregloCasillas[i][0];
+        if (casillaAux.classList.value=='casilla') {
+            continue;
+        }
+
+        let coincidencia = 0;
+
+        for(let j=0; j<arregloCasillas.length; j++) {
+            
+            if ( casillaAux.classList.value != arregloCasillas[i][j].classList.value) {
+                break;
+            }
+
+            coincidencia++;
+        }
+
+        if(coincidencia==arregloCasillas.length) {
+            return true;
+        }
+
+    }
+
+    return false;
+}
+
 const isMaximoMovimientos = (cantidadCasillas) => {
     const juego = JSON.parse(window.sessionStorage.getItem('juego'));
     const turnoContador = juego.turno;
@@ -44,7 +75,12 @@ const isMaximoMovimientos = (cantidadCasillas) => {
 }
 
 const isGameOver = (arregloCasillas) => {
-    //Comprobar vertical
+    //ESTO DESPUES DEVOLVERA UN OBJETO
+
+    //Comprobar horizontal
+    if( isHorizontalWinner(arregloCasillas) ) {
+        return true;
+    }
 
     //Comprobar si se excedio el maximo de movimientos
     if( isMaximoMovimientos(arregloCasillas.length) ) {
@@ -62,7 +98,9 @@ function logicaJuego (event, arregloCasillas) {
     const casilla = event.target;
     seleccionarCasilla(casilla);
 
-    isGameOver(arregloCasillas);
+    if(isGameOver(arregloCasillas)) {
+        console.log('TERMINO');
+    }
 
     cambiarTurno();
 }

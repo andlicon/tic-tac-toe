@@ -2,6 +2,10 @@ const isCasillaSeleccionable = (event) => {
     const casilla = event.target;
     const clasesArray = casilla.classList;
 
+    if (event.currentTarget == event.target) {
+        return false;
+    }
+
     for(const clase of clasesArray) {
         if(clase.includes('Jugador')) {
             return false;
@@ -32,7 +36,7 @@ const cambiarTurno = () => {
 const isGameOver = (casillaSeleccionada) => {
     const casillasArray = document.querySelectorAll('.casilla');
     //Comprobar vertical
-    
+
 }
 
 const logicaJuego = event => {
@@ -44,13 +48,42 @@ const logicaJuego = event => {
     const casilla = event.target;
     seleccionarCasilla(casilla);
     //comprobar si hay un ganador
-    isGanador();
+    // isGanador();
 
     cambiarTurno();
 }
 
+const reiniciarTablero = (longitud) => {
+    const tablero = document.querySelector('.contenido');
+    const contenidoTablero = tablero.querySelectorAll('*');
+    
+    for(const elemento of contenidoTablero) {
+        tablero.removeChild(elemento);
+    }
+
+    const matrizCuadricula = [];
+
+    for(let i=0; i<longitud; i++) {
+        const row = [];
+
+        for(let j=0; j<longitud; j++) {
+            const casilla = document.createElement('div');
+            casilla.classList.add('casilla');
+
+            row.push(casilla);
+            tablero.appendChild(casilla);
+        }
+
+        matrizCuadricula.push(row);
+    }
+
+    return matrizCuadricula;
+}
+
 window.addEventListener('load', () => {
     const tablero = document.querySelector('.contenido');
+    const arregloCasillas = reiniciarTablero(3);
+    console.log(arregloCasillas);
     tablero.addEventListener('click', logicaJuego);
 
     const juego = {
